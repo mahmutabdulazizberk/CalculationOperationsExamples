@@ -25,38 +25,20 @@ public class Data
         hesaplamaSonucu.Bolum = sayılar.Sayı1 / sayılar.Sayı2;
         return hesaplamaSonucu;
     }
-    
-
 
     public List<UsluToplamCarpimSonucu> SonucVer(Rakamlar rakamlar)
     {
-        List<UsluToplamCarpimSonucu> liste = new List<UsluToplamCarpimSonucu>();
-        HesaplamaSonucu hesaplamaSonucu = new HesaplamaSonucu();
-        for (int i = 1; i <= rakamlar.Us; i++)
+        return Enumerable.Range(1, rakamlar.Us).Select(i => new UsluToplamCarpimSonucu
         {
-            int toplam = (int)(Math.Pow(rakamlar.sayi1, i)) + (int)(Math.Pow(rakamlar.sayi2, i));
-            int carpim = (int)(Math.Pow(rakamlar.sayi1, i)) * (int)(Math.Pow(rakamlar.sayi2, i)); 
-            liste.Add(new UsluToplamCarpimSonucu() { Toplam = toplam, Carpim = carpim });
-        }
-        return liste;
+            Toplam = (int)(Math.Pow(rakamlar.sayi1, i)) + (int)(Math.Pow(rakamlar.sayi2, i)),
+            Carpim = (int)(Math.Pow(rakamlar.sayi1, i)) * (int)(Math.Pow(rakamlar.sayi2, i))
+        }).ToList();
     }
 
     public List<UsluToplamCarpimSonucu> Hesapla(Rakamlar rakamlar)
     {
         return SonucVer(rakamlar);
     }
-
-    public int UsAl(int taban, int us)
-    {
-        int sonuc=1;
-        for (int i = 1; i <= us; i++)
-        {
-            sonuc = sonuc * taban;
-        }
-        return sonuc;
-    }
-
-    
 
     public class UsluToplamCarpimSonucu
     {
@@ -76,7 +58,6 @@ public class Data
         public int Sayı1 { get; set; }
         public int Sayı2 { get; set; }
     }
-
     public class Rakamlar
     {
         public int sayi1 { get; set; } //3
