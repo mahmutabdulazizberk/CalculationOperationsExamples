@@ -1,4 +1,7 @@
-﻿namespace Hesaplama;
+﻿using System.Collections.Generic;
+using static Hesaplama.Data;
+
+namespace Hesaplama;
 
 public class Data
 {
@@ -23,17 +26,24 @@ public class Data
         return hesaplamaSonucu;
     }
     
-    public List<UsluToplamCarpimSonucu> Hesapla(Rakamlar rakamlar)
+
+
+    public List<UsluToplamCarpimSonucu> SonucVer(Rakamlar rakamlar)
     {
         List<UsluToplamCarpimSonucu> liste = new List<UsluToplamCarpimSonucu>();
         HesaplamaSonucu hesaplamaSonucu = new HesaplamaSonucu();
         for (int i = 1; i <= rakamlar.Us; i++)
         {
-            int toplam = UsAl(rakamlar.sayi1, i) + UsAl(rakamlar.sayi2, i);
-            int carpim = UsAl(rakamlar.sayi1, i) * UsAl(rakamlar.sayi2, i);
+            int toplam = (int)(Math.Pow(rakamlar.sayi1, i)) + (int)(Math.Pow(rakamlar.sayi2, i));
+            int carpim = (int)(Math.Pow(rakamlar.sayi1, i)) * (int)(Math.Pow(rakamlar.sayi2, i)); 
             liste.Add(new UsluToplamCarpimSonucu() { Toplam = toplam, Carpim = carpim });
         }
         return liste;
+    }
+
+    public List<UsluToplamCarpimSonucu> Hesapla(Rakamlar rakamlar)
+    {
+        return SonucVer(rakamlar);
     }
 
     public int UsAl(int taban, int us)
